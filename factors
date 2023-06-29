@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+
+import sys
+import time
+
+
+def factorize(number):
+    factors = []
+    for i in range(2, number // 2 + 1):
+        if number % i == 0:
+            factors.append((i, number // i))
+    return factors
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: factors <file>")
+        return
+
+    file_path = sys.argv[1]
+
+    with open(file_path, 'r') as file:
+        numbers = file.read().splitlines()
+
+    start_time = time.time()
+
+    for number in numbers:
+        factors = factorize(int(number))
+        for factor in factors:
+            print(f"{number}={factor[0]}*{factor[1]}")
+
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"\nExecution time: {elapsed_time:.3f} seconds")
+
+if __name__ == "__main__":
+    main()
